@@ -1,4 +1,4 @@
-# ��️ PanditJi Frontend
+# 🕉️ PanditJi Frontend
 
 A web app for spiritual practitioners to create profiles and upload documents. Built with React + TypeScript + Tailwind.
 
@@ -6,7 +6,23 @@ A web app for spiritual practitioners to create profiles and upload documents. B
 
 ```bash
 npm install
-npm run dev
+npm run dev          # Development (port 3000)
+npm run build        # Production build
+npm run preview:3000 # Preview build (port 3000)
+```
+
+## 🌍 Environment Setup
+
+### Development
+```bash
+# .env.development
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
+### Production  
+```bash
+# .env.production
+VITE_API_BASE_URL=https://your-production-api.com/api
 ```
 
 ## ✨ What it does
@@ -23,9 +39,12 @@ npm run dev
 - Axios for API calls
 - React Router for navigation
 
-## 🌐 API
+## 🚀 Deploy to Server
 
-Set your backend URL in `.env`:
-```env
-VITE_API_BASE_URL=http://localhost:8000/api
+```bash
+git clone <your-repo>
+cd panditji-frontend
+npm install
+npm run build
+npm run preview:3000  # Production on port 3000
 ```
