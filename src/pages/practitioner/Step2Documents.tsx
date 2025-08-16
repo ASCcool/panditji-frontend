@@ -169,6 +169,7 @@ export default function Step2Documents() {
             Step 2 — Upload Documents
           </h1>
           <p className="text-gray-600 text-lg">Upload required documents to complete your profile</p>
+          <p className="text-gray-600 text-sm">* Maximum file size is 5MB and only JPG, PNG, GIF images and PDF files are allowed</p>
         </div>
 
         {/* Document Upload Sections */}
