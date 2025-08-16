@@ -197,12 +197,22 @@ export default function Step1Profile() {
   console.log("Current form state:", form);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Empanelment — Step 1 (Profile)</h1>
-      
+    <div className="max-w-4xl mx-auto p-6 space-y-6 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 min-h-[calc(100vh-64px)]">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent drop-shadow-lg mb-2">
+          Empanelment — Step 1 (Profile)
+        </h1>
+        <p className="text-gray-600 text-lg">Complete your profile to start offering spiritual services</p>
+      </div>
+
       {/* Personal Information */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
+      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/20">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+            <span className="text-white text-sm">👤</span>
+          </div>
+          Personal Information
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input 
             label="Full Name *" 
@@ -322,9 +332,9 @@ export default function Step1Profile() {
               required
             >
               {[...meta.astrology, ...meta.puja].map((t: any) => (
-                <option key={t.id} value={t.id}>{t.name}</option>
-              ))}
-            </MultiSelect>
+              <option key={t.id} value={t.id}>{t.name}</option>
+            ))}
+          </MultiSelect>
 
             <MultiSelect 
               label="Specific Puja Expertise (subset of above)"
@@ -342,9 +352,9 @@ export default function Step1Profile() {
               }}
             >
               {meta.puja.map((t: any) => (
-                <option key={t.id} value={t.id}>{t.name}</option>
-              ))}
-            </MultiSelect>
+              <option key={t.id} value={t.id}>{t.name}</option>
+            ))}
+          </MultiSelect>
 
             <MultiSelect 
               label="Languages *"
@@ -363,9 +373,9 @@ export default function Step1Profile() {
               required
             >
               {meta.languages.map((t: any) => (
-                <option key={t.id} value={t.id}>{t.name}</option>
-              ))}
-            </MultiSelect>
+              <option key={t.id} value={t.id}>{t.name}</option>
+            ))}
+          </MultiSelect>
           </div>
         </div>
       )}
@@ -402,9 +412,9 @@ export default function Step1Profile() {
               onChange={e => setForm({...form, online_scope: e.target.value})}
             >
               {meta.online_scopes.map((s: any) => (
-                <option key={s.key} value={s.key}>{s.label}</option>
-              ))}
-            </Select>
+              <option key={s.key} value={s.key}>{s.label}</option>
+            ))}
+          </Select>
 
             {form.online_scope === "specific_countries" && (
               <MultiSelect 
@@ -696,9 +706,19 @@ export default function Step1Profile() {
       <button 
         disabled={saving} 
         onClick={save} 
-        className="w-full px-6 py-3 rounded-lg bg-purple-600 text-white font-semibold hover:bg-purple-700 disabled:opacity-50"
+        className="w-full px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all duration-500 transform hover:-translate-y-1 hover:scale-105 disabled:opacity-50 disabled:transform-none"
       >
-        {saving ? "Saving..." : "Save & Continue"}
+        {saving ? (
+          <span className="flex items-center justify-center gap-3">
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            Saving...
+          </span>
+        ) : (
+          <span className="flex items-center justify-center gap-3">
+            <span>💾</span>
+            Save & Continue
+          </span>
+        )}
       </button>
     </div>
   );

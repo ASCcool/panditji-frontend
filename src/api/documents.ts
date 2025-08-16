@@ -13,5 +13,17 @@ export async function uploadDocument(practitionerId: number, kind: string, file:
 
 export async function listDocuments(practitionerId: number) {
   const { data } = await API.get(`/documents/?practitioner=${practitionerId}`);
-  return data as Array<{ id:number; kind:string; file:string }>;
+  return data as Array<{ 
+    id: number; 
+    practitioner: number; 
+    kind: string; 
+    file: string; 
+    verified_at: string | null; 
+    uploaded_at: string; 
+  }>;
+}
+
+export async function deleteDocument(documentId: number) {
+  const { data } = await API.delete(`/documents/${documentId}/`);
+  return data;
 }

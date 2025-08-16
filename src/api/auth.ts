@@ -33,4 +33,10 @@ export async function register(username: string, password: string, email?: strin
 export function logout() {
   localStorage.removeItem("authToken");
   localStorage.removeItem("authUser");
+  
+  // Update global auth state immediately
+  updateGlobalAuthState();
+  
+  // Redirect to home page
+  window.location.href = '/';
 }
