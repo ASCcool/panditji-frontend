@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../api/auth";
 import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar() {
   const { isAuthed, username } = useAuth();
-  const nav = useNavigate();
 
   return (
     <header className="w-full bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 shadow-2xl border-b-4 border-purple-500">

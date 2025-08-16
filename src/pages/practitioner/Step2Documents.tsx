@@ -28,7 +28,6 @@ export default function Step2Documents() {
   const [deleting, setDeleting] = useState<number | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [fileErrors, setFileErrors] = useState<{[k:string]: string}>({});
 
   // Document type configurations
   const documentTypes = [
@@ -110,43 +109,6 @@ export default function Step2Documents() {
 
   const getDocumentByKind = (kind: string) => {
     return documents.find(doc => doc.kind === kind);
-  };
-
-  const validateFile = (file: File, kind: string): string | null => {
-    // Check file size (5MB limit)
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-    if (file.size > maxSize) {
-      return `File size must be less than 5MB. Current size: ${(file.size / 1024 / 1024).toFixed(2)}MB`;
-    }
-
-    // Check file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf'];
-    if (!allowedTypes.includes(file.type)) {
-      return 'Only JPG, PNG, GIF images and PDF files are allowed';
-    }
-
-    return null; // No error
-  };
-
-  const handleFileChange = (kind: string, file: File | null) => {
-    // Clear previous error
-    setFileErrors(prev => ({ ...prev, [kind]: '' }));
-
-    if (!file) {
-      setFiles(prev => ({ ...prev, [kind]: null }));
-      return;
-    }
-
-    // Validate file
-    const error = validateFile(file, kind);
-    if (error) {
-      setFileErrors(prev => ({ ...prev, [kind]: error }));
-      setFiles(prev => ({ ...prev, [kind]: null }));
-      return;
-    }
-
-    // File is valid
-    setFiles(prev => ({ ...prev, [kind]: file }));
   };
 
   if (loading) {
