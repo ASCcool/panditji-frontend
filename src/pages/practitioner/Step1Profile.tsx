@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchEnrollmentMetadata } from "../../api/taxonomies";
-import { createPractitionerDraft, patchPractitioner } from "../../api/practitioners";
+import { createPractitionerDraft, patchPractitioner, getPractitionerMe } from "../../api/practitioners";
 import Input from "../../components/form/Input";
 import MultiSelect from "../../components/form/MultiSelect";
 import Select from "../../components/form/Select";
@@ -90,37 +90,28 @@ export default function Step1Profile() {
         
         // Try to fetch existing practitioner data
         try {
-          const response = await fetch('http://localhost:8000/api/practitioners/me/', {
-            headers: {
-              'Authorization': `Token ${localStorage.getItem('authToken')}`,
-              'Content-Type': 'application/json'
-            }
-          });
+          const existingData = await getPractitionerMe();
+          setId(existingData.id);
           
-          if (response.ok) {
-            const existingData = await response.json();
-            setId(existingData.id);
-            
-            // Extract nested fee_preferences to flat form fields
-            const feePrefs = existingData.fee_preferences || {};
-            
-            setForm((prev: any) => ({
-              ...prev,
-              ...existingData,
-              // Extract fee preferences to flat fields
-              currency: feePrefs.currency || "INR",
-              consultation_fee: feePrefs.consultation_fee || "",
-              hourly_rate: feePrefs.hourly_rate || "",
-              puja_fees: feePrefs.puja_fees || [],
-              // Ensure arrays are properly initialized
-              expertise_ids: existingData.expertise_ids || [],
-              specific_puja_expertise_ids: existingData.specific_puja_expertise_ids || [],
-              language_ids: existingData.language_ids || [],
-              preferred_service_modes: existingData.preferred_service_modes || [],
-              inperson_additional_cities: existingData.inperson_additional_cities || [],
-              online_specific_countries: existingData.online_specific_countries || []
-            }));
-          }
+          // Extract nested fee_preferences to flat form fields
+          const feePrefs = existingData.fee_preferences || {};
+          
+          setForm((prev: any) => ({
+            ...prev,
+            ...existingData,
+            // Extract fee preferences to flat fields
+            currency: feePrefs.currency || "INR",
+            consultation_fee: feePrefs.consultation_fee || "",
+            hourly_rate: feePrefs.hourly_rate || "",
+            puja_fees: feePrefs.puja_fees || [],
+            // Ensure arrays are properly initialized
+            expertise_ids: existingData.expertise_ids || [],
+            specific_puja_expertise_ids: existingData.specific_puja_expertise_ids || [],
+            language_ids: existingData.language_ids || [],
+            preferred_service_modes: existingData.preferred_service_modes || [],
+            inperson_additional_cities: existingData.inperson_additional_cities || [],
+            online_specific_countries: existingData.online_specific_countries || []
+          }));
         } catch (error) {
           console.log("No existing practitioner data found, starting fresh");
         }

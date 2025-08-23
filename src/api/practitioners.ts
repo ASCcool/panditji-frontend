@@ -1,6 +1,11 @@
 import API from "./client";
 import type { Practitioner } from "../types/models";
 
+export async function getPractitionerMe() {
+  const { data } = await API.get("/practitioners/me/");
+  return data as Practitioner;
+}
+
 export async function createPractitionerDraft(payload: Partial<Practitioner>) {
   const { data } = await API.post("/practitioners/", payload);
   return data as Practitioner;
